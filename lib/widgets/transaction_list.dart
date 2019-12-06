@@ -5,9 +5,6 @@ import '../models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> _transactions;
-
-  final String _currency = "\$";
-
   final titleController = TextEditingController();
   final amountController = TextEditingController();
 
@@ -39,15 +36,15 @@ class TransactionList extends StatelessWidget {
               ],
             );
           })
-        : ListView.builder(
-            shrinkWrap: true,
-            itemBuilder: (BuildContext context, int index) {
-              Transaction transaction = this._transactions[index];
-              return new TransactionItem(
-                  transaction: transaction,
-                  deleteTransaction: _deleteTransaction);
-            },
-            itemCount: _transactions.length,
+        : ListView(
+            children: <Widget>[
+              ...this._transactions.map((Transaction tx) {
+                return new TransactionItem(
+                    key: ValueKey(tx.id),
+                    transaction: tx,
+                    deleteTransaction: this._deleteTransaction);
+              }).toList(),
+            ],
           );
   }
 }

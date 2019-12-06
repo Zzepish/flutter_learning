@@ -282,7 +282,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     final bool isLandscape = mediaQuery.orientation == Orientation.landscape;
 
-    return Platform.isAndroid
+    return Platform.isIOS
         ? this._buildCupertinoApp(context, isLandscape, mediaQuery)
         : this._buildMaterialApp(context, isLandscape, mediaQuery);
   }

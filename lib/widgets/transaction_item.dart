@@ -5,11 +5,13 @@ import 'package:learning/models/transaction.dart';
 class TransactionItem extends StatelessWidget {
   const TransactionItem({
     Key key,
-    @required this.transaction,
+    @required Transaction transaction,
     @required Function deleteTransaction,
-  }) : _deleteTransaction = deleteTransaction, super(key: key);
+  }) : _transaction = transaction,
+        _deleteTransaction = deleteTransaction,
+        super(key: key);
 
-  final Transaction transaction;
+  final Transaction _transaction;
   final Function _deleteTransaction;
 
   @override
@@ -26,16 +28,16 @@ class TransactionItem extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.all(10),
             child: FittedBox(
-                child: Text('\$${transaction.amount}',
+                child: Text('\$${this._transaction.amount}',
                     style: Theme.of(context).textTheme.title)),
           ),
         ),
-        title: Text('${transaction.title}'),
-        subtitle: Text(DateFormat.yMMMMd().format(transaction.date)),
+        title: Text('${this._transaction.title}'),
+        subtitle: Text(DateFormat.yMMMMd().format(this._transaction.date)),
         trailing: MediaQuery.of(context).size.width > 360
             ? FlatButton.icon(
             onPressed: () {
-              this._deleteTransaction(transaction.id);
+              this._deleteTransaction(this._transaction.id);
             },
             textColor: Colors.red,
             icon: Icon(Icons.delete),
@@ -44,7 +46,7 @@ class TransactionItem extends StatelessWidget {
           icon: Icon(Icons.delete),
           color: Theme.of(context).errorColor,
           onPressed: () {
-            this._deleteTransaction(transaction.id);
+            this._deleteTransaction(this._transaction.id);
           },
         ),
       ),
